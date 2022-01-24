@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {useParams, Link} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 class WelcomeComponent extends Component {
     render() {
+
         return (
             <>
             <h1>Welcome!</h1>
@@ -12,7 +13,6 @@ class WelcomeComponent extends Component {
             </>
         )
     }
-
 }
 
 function WithParams(props) {
