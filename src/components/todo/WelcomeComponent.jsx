@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 
 class WelcomeComponent extends Component {
     render() {
@@ -8,7 +8,7 @@ class WelcomeComponent extends Component {
             <>
             <h1>Welcome!</h1>
             <div className='container'>
-                You are logged in, {this.props.params.name}.
+                You are logged in, {this.props.params.name}. Manage your todos <Link to="/todos">here</Link>.
             </div>
             </>
         )

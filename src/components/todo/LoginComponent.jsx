@@ -35,7 +35,7 @@ class LoginComponent extends Component {
 
         if (this.state.username==='droberts' && this.state.password==='password') {
             this.props.navigate(`/welcome/${this.state.username}`)
-
+            //need the ticks `` (NOT '' )in this.props.navigate for the javascript $ to work!!!!!!! 
 
             this.setState({showSuccessMessage: true})
             this.setState({hasLoginFailed: false})
