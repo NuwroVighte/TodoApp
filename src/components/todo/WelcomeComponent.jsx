@@ -7,7 +7,7 @@ class WelcomeComponent extends Component {
         return (
             <>
             <h1>Welcome!</h1>
-            <div className='container'>
+            <div className="container">
                 You are logged in, {this.props.params.name}. Manage your todos <Link to="/todos">here</Link>.
             </div>
             </>
