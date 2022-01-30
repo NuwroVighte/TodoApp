@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {useNavigate} from 'react-router-dom'
+import AuthenticationService from './AuthenticationService.js'
 
 class LoginComponent extends Component {
     constructor(props) {
@@ -34,6 +35,7 @@ class LoginComponent extends Component {
         
 
         if (this.state.username==='droberts' && this.state.password==='password') {
+            AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password);
             this.props.navigate(`/welcome/${this.state.username}`)
             //need the ticks `` (NOT '' )in this.props.navigate for the javascript $ to work!!!!!!! 
 
