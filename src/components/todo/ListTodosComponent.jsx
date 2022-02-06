@@ -9,18 +9,67 @@ class ListTodosComponent extends Component {
         console.log('constructor')
         super(props)
         this.state = {
-            todos : 
-            [
-            //  {id: 1, description : 'Update to function components', done: false, targetDate: new Date()},
-            //  {id: 2, description : 'Refactor SQL queries', done: false, targetDate: new Date()},
-            //  {id: 3, description : 'Practice leetcode', done: false, targetDate: new Date()},
-            //  {id: 4, description : 'Pet dog', done: false, targetDate: new Date()}
-            ]
+            todos : [], 
+            message : null
         }
+        this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
+        this.refreshTodos = this.refreshTodos.bind(this)
     }
 
     componentDidMount() {
         console.log('componentDidMount')
+        this.refreshTodos()
+        
+    }
+
+    render() {
+        console.log('render')
+        return(
+            <div>
+                <h1>List of todos.</h1>
+                {this.state.message && <div className="alart alert-success">{this.state.message}</div>} {/*only shows message div if message isn't null*/}
+                <div className="container">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Done?</th>
+                                <th>Target Date</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.state.todos.map(
+                                    todo =>
+                                    <tr key={todo.id}>
+                                    <td>{todo.description}</td>
+                                    <td>{todo.done.toString()}</td>
+                                    <td>{moment(todo.targetDate).format('MMM DD, YYYY')}</td>
+                                    <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td> {/* arrow function required for it to work because deleteTodoClicked passes a parameter*/}
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+
+    deleteTodoClicked(id) {
+        let username = AuthenticationService.getLoggedInUserName()
+        console.log(id + " " + username)
+        TodoDataService.deleteTodo(username, id)
+        .then (
+            response => {
+                this.setState({message: `Successfully deleted todo #${id}`})
+                this.refreshTodos()
+            }
+        )
+    }
+
+    refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName
         TodoDataService.retrieveAllTodos(username)
         .then(
@@ -33,37 +82,6 @@ class ListTodosComponent extends Component {
         )
     }
 
-    render() {
-        console.log('render')
-        return(
-            <div>
-                <h1>List of todos.</h1>
-                <div className="container">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Done?</th>
-                                <th>Target Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.todos.map(
-                                    todo =>
-                                    <tr key={todo.id}>
-                                    <td>{todo.description}</td>
-                                    <td>{todo.done.toString()}</td>
-                                    <td>{moment(todo.targetDate).format('MMM DD, YYYY')}</td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        )
-    }
 }
 
 export default ListTodosComponent
