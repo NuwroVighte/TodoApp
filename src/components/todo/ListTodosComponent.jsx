@@ -2,6 +2,7 @@ import moment from 'moment'
 import React, {Component} from 'react'
 import TodoDataService from '../../api/todo/TodoDataService'
 import AuthenticationService from './AuthenticationService'
+import {useNavigate} from 'react-router-dom'
 
 
 class ListTodosComponent extends Component {
@@ -13,6 +14,7 @@ class ListTodosComponent extends Component {
             message : null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
+        this.updateTodoClicked = this.updateTodoClicked.bind(this)
         this.refreshTodos = this.refreshTodos.bind(this)
     }
 
@@ -35,6 +37,7 @@ class ListTodosComponent extends Component {
                                 <th>Description</th>
                                 <th>Done?</th>
                                 <th>Target Date</th>
+                                <th>Update</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -46,6 +49,7 @@ class ListTodosComponent extends Component {
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
                                     <td>{moment(todo.targetDate).format('MMM DD, YYYY')}</td>
+                                    <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
                                     <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td> {/* arrow function required for it to work because deleteTodoClicked passes a parameter*/}
                                     </tr>
                                 )
@@ -69,6 +73,20 @@ class ListTodosComponent extends Component {
         )
     }
 
+    updateTodoClicked(id) {
+        console.log('update ' + id)
+        this.props.navigate(`/todos/${id}`)
+        // let username = AuthenticationService.getLoggedInUserName()
+        // console.log(id + " " + username)
+        // TodoDataService.deleteTodo(username, id)
+        // .then (
+        //     response => {
+        //         this.setState({message: `Successfully updated todo #${id}`})
+        //         this.refreshTodos()
+        //     }
+        // )
+    }
+
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName
         TodoDataService.retrieveAllTodos(username)
@@ -84,4 +102,9 @@ class ListTodosComponent extends Component {
 
 }
 
-export default ListTodosComponent
+function WithNavigate(props) {
+    let navigate = useNavigate()
+    return <ListTodosComponent {...props} navigate={navigate} />
+}
+
+export default WithNavigate
