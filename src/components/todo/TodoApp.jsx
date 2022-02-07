@@ -2,13 +2,13 @@ import React, {Component} from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import WelcomeComponent from './WelcomeComponent'
 import LoginComponent from './LoginComponent'
-import LogoutComponent from './LogoutComponent.jsx'
+import LogoutComponent from './LogoutComponent'
 import HeaderComponent from './HeaderComponent'
-import FooterComponent from './FooterComponent.jsx'
+import FooterComponent from './FooterComponent'
 import AuthenticatedRoute from './AuthenticatedRoute'
 import ListTodosComponent from './ListTodosComponent'
 import TodoComponent from './TodoComponent'
-import ErrorComponent from './ErrorComponent.jsx'
+import ErrorComponent from './ErrorComponent'
 
 class TodoApp extends Component {
     render() {

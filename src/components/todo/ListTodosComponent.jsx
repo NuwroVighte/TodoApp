@@ -9,10 +9,12 @@ class ListTodosComponent extends Component {
     constructor(props) {
         console.log('constructor')
         super(props)
+
         this.state = {
             todos : [], 
-            message : null
+            message : null,
         }
+        this.addTodoClicked = this.addTodoClicked.bind(this)
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
         this.updateTodoClicked = this.updateTodoClicked.bind(this)
         this.refreshTodos = this.refreshTodos.bind(this)
@@ -28,7 +30,7 @@ class ListTodosComponent extends Component {
         console.log('render')
         return(
             <div>
-                <h1>List of todos.</h1>
+                <h1>Todos.</h1>
                 {this.state.message && <div className="alart alert-success">{this.state.message}</div>} {/*only shows message div if message isn't null*/}
                 <div className="container">
                     <table className="table">
@@ -50,15 +52,22 @@ class ListTodosComponent extends Component {
                                     <td>{todo.done.toString()}</td>
                                     <td>{moment(todo.targetDate).format('MMM DD, YYYY')}</td>
                                     <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
-                                    <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td> {/* arrow function required for it to work because deleteTodoClicked passes a parameter*/}
+                                    <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>{/* arrow function required for it to work because deleteTodoClicked passes a parameter*/}
                                     </tr>
                                 )
                             }
                         </tbody>
                     </table>
+                    <div className="row">
+                        <button className="btn btn-success" onClick={() => this.addTodoClicked()}>Add</button>
+                    </div>
                 </div>
             </div>
         )
+    }
+
+    addTodoClicked() {
+        this.props.navigate('/todos/-1')
     }
 
     deleteTodoClicked(id) {
