@@ -47,8 +47,19 @@ class WelcomeComponent extends Component {
     }
 
     handleError(error) {
-        console.log(error.response)
-        this.setState({welcomeMessage: error.response.data.message})
+        //sometimes errors don't have a response, so this can create an 'undefined' error
+        //console.log(error.response)
+
+        //to prevent this, make an empty errorMessage, check if an error message exists and append it.
+        //then check of there's an error response and if that error response has data. if it does, it will
+        //append more. then return finished appended errorMessage.
+        let errorMessage = ''
+        if (error.message) errorMessage += error.message
+        if (error.response && error.response.data) {
+            errorMessage += error.response.data.message
+        }
+
+        this.setState({welcomeMessage: errorMessage})
     }
 }
 
