@@ -34,19 +34,33 @@ class LoginComponent extends Component {
         //droberts, password
         
 
-        if (this.state.username==='droberts' && this.state.password==='password') {
+        // if (this.state.username==='droberts' && this.state.password==='password') {
+        //     AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password);
+        //     this.props.navigate(`/welcome/${this.state.username}`)
+        //     //need the ticks `` (NOT '' )in this.props.navigate for the javascript $ to work!!!!!!! 
+
+        //     this.setState({showSuccessMessage: true})
+        //     this.setState({hasLoginFailed: false})
+        // }
+        // else {
+        //     this.setState({showSuccessMessage: false})
+        //     this.setState({hasLoginFailed: true})
+        //     console.log(this.state)
+        // }
+
+        AuthenticationService
+        .executeBasicAuthenticationService(this.state.username, this.state.password)
+        .then( () => {
             AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password);
             this.props.navigate(`/welcome/${this.state.username}`)
-            //need the ticks `` (NOT '' )in this.props.navigate for the javascript $ to work!!!!!!! 
-
-            this.setState({showSuccessMessage: true})
-            this.setState({hasLoginFailed: false})
-        }
-        else {
+        }).catch( () => {
             this.setState({showSuccessMessage: false})
             this.setState({hasLoginFailed: true})
             console.log(this.state)
         }
+
+
+        )
 
     }
 
