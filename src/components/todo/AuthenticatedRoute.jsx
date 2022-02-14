@@ -10,7 +10,6 @@ class AuthenticatedRoute extends Component {
         else {
             return <Navigate to="/login"/>
         }
-
     }
 }
 

@@ -84,12 +84,10 @@ class TodoComponent extends Component {
 
 
     render() {
-
         // let description = this.state.description
         // let targetDate = this.state.targetDate
         //able to condense since the variables have the same name in this.state
         let {description,targetDate} = this.state
-
 
         return (
             <div>

@@ -13,7 +13,6 @@ class LoginComponent extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
-
     }
 
 
@@ -25,15 +24,32 @@ class LoginComponent extends Component {
                 [event.target.name] : event.target.value
             }
         )
-
     }
 
     loginClicked() {
+        AuthenticationService
+        .executeJwtAuthenticationService(this.state.username, this.state.password)
+        .then( (response) => {
+            AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token);
+            this.props.navigate(`/welcome/${this.state.username}`)
+        }).catch( () => {
+            this.setState({showSuccessMessage: false})
+            this.setState({hasLoginFailed: true})
+            console.log(this.state)
+        })
 
+        // AuthenticationService
+        // .executeBasicAuthenticationService(this.state.username, this.state.password)
+        // .then( () => {
+        //     AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password);
+        //     this.props.navigate(`/welcome/${this.state.username}`)
+        // }).catch( () => {
+        //     this.setState({showSuccessMessage: false})
+        //     this.setState({hasLoginFailed: true})
+        //     console.log(this.state)
+        // })
 
         //droberts, password
-        
-
         // if (this.state.username==='droberts' && this.state.password==='password') {
         //     AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password);
         //     this.props.navigate(`/welcome/${this.state.username}`)
@@ -47,21 +63,6 @@ class LoginComponent extends Component {
         //     this.setState({hasLoginFailed: true})
         //     console.log(this.state)
         // }
-
-        AuthenticationService
-        .executeBasicAuthenticationService(this.state.username, this.state.password)
-        .then( () => {
-            AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password);
-            this.props.navigate(`/welcome/${this.state.username}`)
-        }).catch( () => {
-            this.setState({showSuccessMessage: false})
-            this.setState({hasLoginFailed: true})
-            console.log(this.state)
-        }
-
-
-        )
-
     }
 
     render () {

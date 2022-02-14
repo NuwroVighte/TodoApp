@@ -17,20 +17,19 @@ class WelcomeComponent extends Component {
 
 
     render() {
-
         return (
             <>
-            <h1>Welcome!</h1>
-            <div className="container">
-                You are logged in, {this.props.params.name}. Manage your todos <Link to="/todos">here</Link>.
-            </div>
-            <div className="container">
-                Click here to be double welcomed!
-                <button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Get EXTRA welcomed!</button>
-            </div>
-            <div className="container">
-                {this.state.welcomeMessage}
-            </div>
+                <h1>Welcome!</h1>
+                <div className="container">
+                    You are logged in, {this.props.params.name}. Manage your todos <Link to="/todos">here</Link>.
+                </div>
+                <div className="container">
+                    Click here to be double welcomed!
+                    <button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Get EXTRA welcomed!</button>
+                </div>
+                <div className="container">
+                    {this.state.welcomeMessage}
+                </div>
             </>
         )
     }
