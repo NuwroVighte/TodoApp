@@ -12,7 +12,6 @@ import ErrorComponent from './ErrorComponent'
 
 class TodoApp extends Component {
     render() {
-
         return (
             <div className="TodoApp">
                 <Router>

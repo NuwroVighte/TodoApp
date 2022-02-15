@@ -15,8 +15,6 @@ class LoginComponent extends Component {
         this.loginClicked = this.loginClicked.bind(this)
     }
 
-
-
     handleChange(event) {
         //console.log(this.state)
         this.setState(
